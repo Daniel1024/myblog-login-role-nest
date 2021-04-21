@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PostModule } from './post/post.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { PostModule } from './post/post.module';
       logging: true,
       logger: 'file',
     }),
-    PostModule
+    PostModule,
+    UserModule
   ],
   controllers: [
     AppController
