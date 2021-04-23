@@ -22,8 +22,10 @@ export class UserService {
     return this.userRepo.find();
   }
 
-  async getOne(id: number) {
-    const user = await this.userRepo.findOne(id);
+  async getOne(id: number, userE?: User) {
+    const user = await this.userRepo.findOne(id)
+      .then((u) => !userE ? u : !!u && userE.id === u.id ? u : null);
+
     if (!user) {
       throw new NotFoundException('User does not exists');
     }
@@ -44,8 +46,8 @@ export class UserService {
     return user;
   }
 
-  async editOne(id: number, dto: EditUserDto) {
-    const user = await this.getOne(id);
+  async editOne(id: number, dto: EditUserDto, userE?: User) {
+    const user = await this.getOne(id, userE);
 
     const editUser = this.userRepo.merge(user, dto);
     const userEdited = await this.userRepo.save(editUser);
@@ -54,8 +56,8 @@ export class UserService {
     return userEdited;
   }
 
-  async deleteOne(id: number) {
-    const user = await this.getOne(id);
+  async deleteOne(id: number, userE?: User) {
+    const user = await this.getOne(id, userE);
     await this.userRepo.remove(user);
   }
 

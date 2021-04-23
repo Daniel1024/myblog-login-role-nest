@@ -3,10 +3,11 @@ import {
   BeforeUpdate,
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, OneToMany,
   PrimaryGeneratedColumn
 } from 'typeorm';
 import { hash } from 'bcrypt';
+import { Post } from '../../post/entities';
 
 @Entity('users')
 export class User {
@@ -25,14 +26,17 @@ export class User {
   @Column({ type: 'varchar', length: 128, nullable: false, select: false })
   password: string;
 
+  @Column({ type: 'simple-array' })
+  roles: string[];
+
   @Column({ type: 'bool', default: true })
   status: boolean;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  /*@OneToMany(_ => Post, post => post.author, { cascade: true })
-  posts: Post;*/
+  @OneToMany(_ => Post, post => post.author, { cascade: true })
+  posts: Post;
 
   @BeforeInsert()
   @BeforeUpdate()

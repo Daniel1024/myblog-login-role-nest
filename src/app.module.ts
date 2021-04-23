@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AccessControlModule } from 'nest-access-control';
 
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
@@ -8,6 +9,7 @@ import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import * as Db from './config/constants';
+import { roles } from './app.roles';
 
 @Module({
   imports: [
@@ -28,6 +30,7 @@ import * as Db from './config/constants';
         logger: 'file',
       })
     }),
+    AccessControlModule.forRoles(roles),
     PostModule,
     UserModule,
     AuthModule
