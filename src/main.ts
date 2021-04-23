@@ -18,7 +18,7 @@ async function bootstrap() {
   );
 
   await app.listen(port);
-  logger.log(`Server is running at ${await app.getUrl()}`);
+  logger.log(`Server is running at http://localhost:${port}`);
 }
 
 bootstrap();

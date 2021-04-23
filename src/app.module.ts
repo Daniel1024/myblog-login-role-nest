@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 import * as Db from './config/constants';
 
 @Module({
@@ -28,7 +29,8 @@ import * as Db from './config/constants';
       })
     }),
     PostModule,
-    UserModule
+    UserModule,
+    AuthModule
   ],
   controllers: [
     AppController
