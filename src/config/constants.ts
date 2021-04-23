@@ -1,3 +1,7 @@
+export const APP_PORT = 'APP_PORT';
+
+export const JWT_SECRET = 'JWT_SECRET';
+
 export const DATABASE_HOST = 'DATABASE_HOST';
 export const DATABASE_PORT = 'DATABASE_PORT';
 export const DATABASE_USERNAME = 'DATABASE_USERNAME';
