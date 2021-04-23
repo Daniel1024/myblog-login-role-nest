@@ -1,9 +1,11 @@
 import { Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard, LocalAuthGuard } from './guards';
-import { User } from '../common/decorators';
+import { Auth, User } from '../common/decorators';
 import { User as UserEntity } from '../user/entities';
 import { AuthService } from './auth.service';
 
+@ApiTags('Auth Routes')
 @Controller('auth')
 export class AuthController {
 
@@ -19,13 +21,16 @@ export class AuthController {
   }
 
   @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  profile() {
-    return 'ESTOS SON TUS DATOS'
+  @Auth()
+  profile(@User() user: UserEntity) {
+    return {
+      message: 'Peticion correcta',
+      user
+    }
   }
 
   @Post('refresh')
-  @UseGuards(JwtAuthGuard)
+  @Auth()
   refresh(@User() user: UserEntity) {
     const data = this.authService.login(user);
     return { message: 'Refresh success', data };
